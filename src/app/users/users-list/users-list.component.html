@@ -1,0 +1,35 @@
+<h2>User lists</h2>
+
+<table class="table table-striped">
+    <thead class="table">
+        <tr>
+            <th scope="col">N/o</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Email</th>
+            <th scope="col">Fiscal code</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Province</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users; let i = index; trackBy: trackUser ">
+            <td>{{i+1}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.fiscalCode}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.province}}</td>
+            <td>
+                <button class="btn btn-danger" (click)="deleteUser(user)">
+                    <i class="bi bi-trash"></i>
+                </button>
+                <button class="btn btn-danger" (click)="deleteUser(user)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
