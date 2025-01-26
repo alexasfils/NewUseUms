@@ -7,6 +7,9 @@ import { User, UserService } from './users/user.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit{
+showUserForm($event: User) {
+throw new Error('Method not implemented.');
+}
   title = 'useums';
 
   users: User[] =[];

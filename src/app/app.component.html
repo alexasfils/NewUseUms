@@ -1,2 +1,14 @@
-<h1>User Managment System</h1>
-<app-users-list [users]="users" (userDeleted)="deleteUser($event)"></app-users-list>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-8">
+                <h1>User Managment System</h1>
+                <app-users-list [users]="users" (userDeleted)="deleteUser($event)"
+                    (userToBeUpdated)="showUserForm($event)"></app-users-list>
+            </div>
+            <div class="col col-md-4">
+                User FORM
+            </div>
+        </div>
+    </div>
+</main>

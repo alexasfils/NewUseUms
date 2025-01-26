@@ -8,16 +8,19 @@ import { User, UserService } from '../user.service';
 })
 export class UsersListComponent implements OnInit {
   @Input() users: User[] = [];
-  @Output() userDeleted= new EventEmitter<User>();
+  @Output() userDeleted = new EventEmitter<User>();
+  @Output() userToBeUpdated = new EventEmitter<User>();
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   trackUser(index: number, user: User): string {
     return user.email;
   }
 
-  deleteUser(user: User) {
+  deleteUser(user: User): void {
     console.log('sono nel userlist');
     this.userDeleted.emit(user);
+  }
+  updateUser(user: User): void {
+    this.userToBeUpdated.emit(user);
   }
 }
