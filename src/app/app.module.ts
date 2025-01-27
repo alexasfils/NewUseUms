@@ -21,7 +21,5 @@ export class AppModule {
     this.users = this.userService.getUsers();
   }
 
-  showUserForm(user: User): void {
-    
-  }
+  showUserForm(user: User): void {}
 }

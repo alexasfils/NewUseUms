@@ -1,10 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-main > .container-fluid{
+main > .container, main>.container-fluid{
 padding: 60px 15px 0;
 }
 
-.container-fluid{
+main>.container,
+main>.container-fluid{
     width: auto;
     min-width: 780px;
     padding: 0 15px;
+}
+
+.bd-placeholder-img{
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 }
