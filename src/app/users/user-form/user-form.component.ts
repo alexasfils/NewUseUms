@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { User } from '../user.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { User, UserService } from '../user.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,14 +9,14 @@ import { NgForm } from '@angular/forms';
 })
 export class UserFormComponent {
   @Input() user: Partial<User> = {};
+  @Output() updateUser = new EventEmitter<User>();
 
-  onSubmitForm(user: User) {
-    console.log(user);
-    this.user = {
-    }
+  constructor(private userService: UserService) {}
 
+  onSubmitForm(form: NgForm) {
+    const userUpdated = { ...form.value, id: this.user.id ?? 0 };
 
-    console.log(this.user);
-    
-  };
+    this.updateUser.emit(userUpdated);
+    form.reset();
+  }
 }

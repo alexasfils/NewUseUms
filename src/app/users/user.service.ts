@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface User {
+  id: number;
   name: string;
   lastName: string;
   email: string;
@@ -15,6 +16,7 @@ export interface User {
 export class UserService {
   users: User[] = [
     {
+      id:1,
       name: 'Marco',
       lastName: 'Verdi',
       email: 'verdi.marco@.com',
@@ -23,6 +25,7 @@ export class UserService {
       province: 'Firenze',
     },
     {
+      id:2,
       name: 'Luca',
       lastName: 'Gialli',
       email: 'giall.iluca@.com',
@@ -31,6 +34,7 @@ export class UserService {
       province: 'Napoli',
     },
     {
+      id:3,
       name: 'Mimmo',
       lastName: 'Verdi',
       email: 'mimmov@.com',
@@ -39,6 +43,7 @@ export class UserService {
       province: 'Palermo',
     },
     {
+      id:4,
       name: 'Anna',
       lastName: 'Neri',
       email: 'annaneri@.com',
@@ -47,6 +52,7 @@ export class UserService {
       province: 'Parigi',
     },
     {
+      id:5,
       name: 'Ugo',
       lastName: 'Florenzi',
       email: 'ugof@.com',
@@ -55,6 +61,7 @@ export class UserService {
       province: 'Roma',
     },
     {
+      id:6,
       name: 'Ciro',
       lastName: 'Padova',
       email: 'padova.ciro@.com',
@@ -71,7 +78,18 @@ export class UserService {
   deleteUser(user: User): void {
     console.log('sono nelle servizio');
      
-    const idx = this.users.findIndex(ele => ele.email === user.email);
+    const idx = this.users.findIndex(ele => ele.id === user.id);
     this.users.splice(idx,1);
+  }
+
+  updateUser(user: User): boolean {
+    //Trovo User con email specifico(id specifico)
+    const idx = this.users.findIndex(ele => ele.id === user.id);
+    //memorizzo la copia dello user dentro l'array di users di userspecifico con indice che gli passo
+    if (idx === -1) {
+      return false;
+    }
+    this.users[idx] = { ...user };
+    return true;
   }
 }

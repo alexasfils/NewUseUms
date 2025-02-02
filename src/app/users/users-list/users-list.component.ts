@@ -12,9 +12,9 @@ export class UsersListComponent implements OnInit {
   @Output() userToBeUpdated = new EventEmitter<User>();
 
   ngOnInit(): void {}
-  trackUser(index: number, user: User): string {
-    return user.email;
-  }
+  // trackUser(index: number, user: User): string {
+  //   return user.email;
+  // }
 
   deleteUser(user: User): void {
     console.log('sono nel userlist');
