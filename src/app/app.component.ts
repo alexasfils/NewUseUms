@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     this.users = this.userService.getUsers();
   }
   showUserForm(user: User): void {
-    this.selectedUser = user;
+    this.selectedUser = {...user}; //Object.assign({}, user)
     this.userCols = 8;
     this.formCols = 4;
   }

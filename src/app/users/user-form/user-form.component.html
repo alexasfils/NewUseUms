@@ -1,27 +1,28 @@
-<form #userForm (submit)="userForm">
+<form>
     <div class="mb-3">
         <div><label for="name" class="form-label">Name</label></div>
-        <div><input class="form-control" type="text" name="name" id="name" placeholder="user name"></div>
+        <div><input class="form-control" type="text" [(ngModel)]="user.name" name="name" id="name"
+                placeholder="user name"></div>
     </div>
     <div class="mb-3">
         <div><label for="lastName" class="form-label">Surname</label></div>
-        <div><input class="form-control" type="text" name="lastName" id="lastName" placeholder="user last name"></div>
+        <div><input class="form-control" type="text" [(ngModel)]="user.lastName" name="lastName" id="lastName" placeholder="user last name"></div>
     </div>
     <div class="mb-3">
         <div><label for="email" class="form-label">Email</label></div>
-        <div><input class="form-control" type="email" name="email" id="email" placeholder="email "></div>
+        <div><input class="form-control" type="email" [(ngModel)]="user.email" name="email" id="email" placeholder="email "></div>
     </div>
     <div class="mb-3">
         <div><label for="fiscalCode" class="form-label">Fiscal Code</label></div>
-        <div><input class="form-control" type="text" name="fiscalCode" id="fiscalCode" placeholder="fiscal code"></div>
+        <div><input class="form-control" type="text" [(ngModel)]="user.fiscalCode" name="fiscalCode" id="fiscalCode" placeholder="fiscal code"></div>
     </div>
     <div class="mb-3">
         <div><label for="phone" class="form-label">Phone</label></div>
-        <div><input class="form-control" type="text" name="phone" id="phone" placeholder="phone"></div>
+        <div><input class="form-control" type="text" [(ngModel)]="user.phone" name="phone" id="phone" placeholder="phone"></div>
     </div>
     <div class="mb-3">
         <div><label for="province" class="form-label">Province</label></div>
-        <div><input class="form-control" type="text" name="province" id="province" placeholder="province"></div>
+        <div><input class="form-control" type="text" [(ngModel)]="user.province" name="province" id="province" placeholder="province"></div>
     </div>
     <div class="mb-3 text-center">
         <button type="submit" class="btn btn-primary me-2">Submit</button>

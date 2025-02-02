@@ -7,5 +7,7 @@ import { User } from '../user.service';
   styleUrl: './user-form.component.css',
 })
 export class UserFormComponent {
-  @Input() user: User | null = null;
+  @Input() user: Partial<User>= {};
+
+
 }
