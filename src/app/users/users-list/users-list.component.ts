@@ -7,14 +7,15 @@ import { User, UserService } from '../user.service';
   styleUrl: './users-list.component.css',
 })
 export class UsersListComponent implements OnInit {
-  @Input() users: User[] = [];
+  users: User[] = [];
   @Output() userDeleted = new EventEmitter<User>();
   @Output() userToBeUpdated = new EventEmitter<User>();
 
-  ngOnInit(): void {}
-  // trackUser(index: number, user: User): string {
-  //   return user.email;
-  // }
+  constructor(private userService: UserService){}
+  ngOnInit(): void {
+    this.users = this.userService.getUsers();
+  }
+
 
   deleteUser(user: User): void {
     console.log('sono nel userlist');
