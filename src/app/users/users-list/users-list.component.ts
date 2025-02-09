@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User, UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-list',
@@ -9,9 +10,8 @@ import { User, UserService } from '../user.service';
 export class UsersListComponent implements OnInit {
   users: User[] = [];
   @Output() userDeleted = new EventEmitter<User>();
-  @Output() userToBeUpdated = new EventEmitter<User>();
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService, private router: Router){}
   ngOnInit(): void {
     this.users = this.userService.getUsers();
   }
@@ -22,6 +22,6 @@ export class UsersListComponent implements OnInit {
     this.userDeleted.emit(user);
   }
   updateUser(user: User): void {
-    this.userToBeUpdated.emit(user);
+    this.router.navigate(['users', user.id]);
   }
 }
