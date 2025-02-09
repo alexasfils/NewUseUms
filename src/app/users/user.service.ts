@@ -79,7 +79,7 @@ export class UserService {
     if (idx === -1) {
       return null;
     }
-    return {...this.users[id]};
+    return { ...this.users[idx] };
   }
 
   deleteUser(user: User): void {
