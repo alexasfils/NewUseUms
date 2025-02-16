@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export interface User {
   id: number;
@@ -14,6 +15,10 @@ export interface User {
   providedIn: 'root',
 })
 export class UserService {
+  userUpdated = new Subject<User>();
+  userCreated = new Subject<User>();
+  userDeleted = new Subject<User>();
+
   users: User[] = [
     {
       id: 1,
@@ -79,12 +84,11 @@ export class UserService {
     if (idx === -1) {
       return null;
     }
-    return {...this.users[id]};
+    return { ...this.users[idx] };
   }
 
   deleteUser(user: User): void {
-    console.log('sono nelle servizio');
-
+    console.log('sono nel servizio, metodo delete');
     const idx = this.users.findIndex((ele) => ele.id === user.id);
     this.users.splice(idx, 1);
   }
@@ -93,10 +97,21 @@ export class UserService {
     //Trovo User con email specifico(id specifico)
     const idx = this.users.findIndex((ele) => ele.id === user.id);
     //memorizzo la copia dello user dentro l'array di users di userspecifico con indice che gli passo
-    if (idx === -1) {
+    if (idx == -1) {
       return false;
     }
     this.users[idx] = { ...user };
+    return true;
+  }
+
+  createUser(user: User): boolean {
+    const idx = this.users.findIndex((ele) => ele.email === user.email);
+    if (idx !== -1) {
+      return false;
+    }
+       user.id = this.users.length + 1;
+
+       this.users.push({...user});
     return true;
   }
 }

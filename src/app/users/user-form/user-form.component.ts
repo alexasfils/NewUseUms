@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User, UserService } from '../user.service';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
@@ -15,20 +15,43 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
   ngOnInit(): void {
-    this.originalUser = { ...this.user};
     this.route.paramMap.subscribe((p) => {
-      const id = Number(p.get('id'));
-      this.user = this.userService.getUser(id);
+      const segment = p.get('id');
+
+      if (!segment) {
+        this.initUser();
+      } else {
+        const id = Number(segment);
+        this.user = this.userService.getUser(id);
+      }
+      this.originalUser = { ...this.user };
     });
   }
 
   onSubmitForm(form: NgForm) {
-    const userUpdated = { ...form.value, id: this.user?.id ?? 0 };
+    const id = this.user?.id ?? 0;
+    const userUpdated = { ...form.value, id: id };
+    if (!id) {
+      this.userService.userCreated.next(userUpdated);
+    } else {
+       this.userService.userUpdated.next(userUpdated);
+    }
+    this.router.navigateByUrl('users');
+  }
 
-    this.updateUser.emit(userUpdated);
-    form.reset();
+  private initUser() {
+    this.user = {
+      id: 0,
+      name: '',
+      lastName: '',
+      email: '',
+      fiscalCode: '',
+      phone: '',
+      province: '',
+    };
   }
 }
