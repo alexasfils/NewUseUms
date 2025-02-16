@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export interface User {
   id: number;
@@ -14,6 +15,9 @@ export interface User {
   providedIn: 'root',
 })
 export class UserService {
+  userUpdated = new Subject<User>();
+  userDeleted = new Subject<User>();
+
   users: User[] = [
     {
       id: 1,
@@ -83,8 +87,7 @@ export class UserService {
   }
 
   deleteUser(user: User): void {
-    console.log('sono nelle servizio');
-
+    console.log('sono nel servizio, metodo delete');
     const idx = this.users.findIndex((ele) => ele.id === user.id);
     this.users.splice(idx, 1);
   }

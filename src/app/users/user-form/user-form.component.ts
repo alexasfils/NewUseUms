@@ -28,7 +28,9 @@ export class UserFormComponent implements OnInit {
 
   onSubmitForm(form: NgForm) {
     const userUpdated = { ...form.value, id: this.user?.id ?? 0 };
-    this.userService.updateUser(userUpdated);
+    // this.userService.updateUser(userUpdated);
+    this.userService.userUpdated.next(userUpdated)
+
     this.router.navigateByUrl('users');
   }
 }

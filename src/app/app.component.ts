@@ -1,20 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User, UserService } from './users/user.service';
-import { UsersModule } from "./users/users.module";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'User Managment System';
-  selectedUser: User | null = null;
-  userCols = 12;
-  formCols = 0;
+  userUpdatedSubscription: Subscription;
+  userDeletedSubscription: Subscription;
 
   users: User[] = [];
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.userUpdatedSubscription = this.userService.userUpdated.subscribe(
+      (user) => {
+        this.onUpdateUser(user);
+      }
+    );
+
+    this.userDeletedSubscription = this.userService.userDeleted.subscribe(
+      (user) => {
+        this.deleteUser(user);
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.userUpdatedSubscription.unsubscribe();
+    this.userDeletedSubscription.unsubscribe;
+  }
   ngOnInit() {
     this.users = this.userService.getUsers();
   }
@@ -24,17 +39,8 @@ export class AppComponent implements OnInit {
     this.userService.deleteUser(user);
     this.users = this.userService.getUsers();
   }
-  showUserForm(user: User): void {
-    this.selectedUser = { ...user }; //Object.assign({}, user)
-    this.userCols = 8;
-    this.formCols = 4;
-  }
 
   onUpdateUser(user: User) {
     this.userService.updateUser(user);
-    this.users = this.userService.getUsers();
-    this.selectedUser = null;
-    this.userCols = 12;
-    this.formCols = 0;
   }
 }

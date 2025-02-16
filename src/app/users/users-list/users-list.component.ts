@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class UsersListComponent implements OnInit {
   users: User[] = [];
-  @Output() userDeleted = new EventEmitter<User>();
 
   constructor(private userService: UserService, private router: Router){}
   ngOnInit(): void {
@@ -18,8 +17,8 @@ export class UsersListComponent implements OnInit {
 
 
   deleteUser(user: User): void {
-    console.log('sono nel userlist');
-    this.userDeleted.emit(user);
+    console.log("Delete User user list component");
+    this.userService.userDeleted.next(user);
   }
   updateUser(user: User): void {
     this.router.navigate(['users', user.id]);
