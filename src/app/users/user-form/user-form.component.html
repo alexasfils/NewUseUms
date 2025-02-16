@@ -1,6 +1,7 @@
 <h2>User Form</h2>
-<div *ngIf="user">
-    <form #userForm="ngForm" (ngSubmit)="onSubmitForm(userForm)">
+
+<form #userForm="ngForm" (ngSubmit)="onSubmitForm(userForm)">
+    <div *ngIf="user">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input class="form-control" type="text" #name="ngModel" [(ngModel)]="user.name" name="name" id="name"
@@ -44,12 +45,15 @@
             <input class="form-control" type="text" [(ngModel)]="user.province" name="province" id="province"
                 placeholder="province">
         </div>
-        <div class="mb-3 text-center">
-            
-            <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary me-2">Submit</button>
-            <button type="reset" class="btn btn-secondary ms-2">Reset</button>
-        </div>
-    </form>
-</div>
-<div *ngIf="!user" class="alert alert-danger">User not found</div>
-<a routerLink="/users" class="btn btn-info me-2">Go Back</a>
+    </div>
+    <!-- <div *ngIf="!user" class="alert alert-danger">User not found</div> -->
+    <div class="mb-3 text-center">
+        <a routerLink="/users" class="btn btn-info me-2">Go Back</a>
+        <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary me-2">Submit</button>
+        <button type="reset" class="btn btn-secondary ms-2">Reset</button>
+       
+
+    </div>
+
+
+</form>

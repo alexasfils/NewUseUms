@@ -19,18 +19,39 @@ export class UserFormComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.originalUser = { ...this.user };
     this.route.paramMap.subscribe((p) => {
-      const id = Number(p.get('id'));
-      this.user = this.userService.getUser(id);
+      const segment = p.get('id');
+
+      if (!segment) {
+        this.initUser();
+      } else {
+        const id = Number(segment);
+        this.user = this.userService.getUser(id);
+      }
+      this.originalUser = { ...this.user };
     });
   }
 
   onSubmitForm(form: NgForm) {
-    const userUpdated = { ...form.value, id: this.user?.id ?? 0 };
-    // this.userService.updateUser(userUpdated);
-    this.userService.userUpdated.next(userUpdated)
-
+    const id = this.user?.id ?? 0;
+    const userUpdated = { ...form.value, id: id };
+    if (!id) {
+      this.userService.userCreated.next(userUpdated);
+    } else {
+       this.userService.userUpdated.next(userUpdated);
+    }
     this.router.navigateByUrl('users');
+  }
+
+  private initUser() {
+    this.user = {
+      id: 0,
+      name: '',
+      lastName: '',
+      email: '',
+      fiscalCode: '',
+      phone: '',
+      province: '',
+    };
   }
 }

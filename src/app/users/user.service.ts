@@ -16,6 +16,7 @@ export interface User {
 })
 export class UserService {
   userUpdated = new Subject<User>();
+  userCreated = new Subject<User>();
   userDeleted = new Subject<User>();
 
   users: User[] = [
@@ -96,10 +97,21 @@ export class UserService {
     //Trovo User con email specifico(id specifico)
     const idx = this.users.findIndex((ele) => ele.id === user.id);
     //memorizzo la copia dello user dentro l'array di users di userspecifico con indice che gli passo
-    if (idx === -1) {
+    if (idx == -1) {
       return false;
     }
     this.users[idx] = { ...user };
+    return true;
+  }
+
+  createUser(user: User): boolean {
+    const idx = this.users.findIndex((ele) => ele.email === user.email);
+    if (idx !== -1) {
+      return false;
+    }
+       user.id = this.users.length + 1;
+
+       this.users.push({...user});
     return true;
   }
 }
