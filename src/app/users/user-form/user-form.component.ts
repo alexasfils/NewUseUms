@@ -32,17 +32,6 @@ export class UserFormComponent implements OnInit {
     });
   }
 
-  onSubmitForm(form: NgForm) {
-    const id = this.user?.id ?? 0;
-    const userUpdated = { ...form.value, id: id };
-    if (!id) {
-      this.userService.userCreated.next(userUpdated);
-    } else {
-       this.userService.userUpdated.next(userUpdated);
-    }
-    this.router.navigateByUrl('users');
-  }
-
   private initUser() {
     this.user = {
       id: 0,
@@ -53,5 +42,16 @@ export class UserFormComponent implements OnInit {
       phone: '',
       province: '',
     };
+  }
+
+  onSubmitForm(form: NgForm) {
+    const id = this.user?.id ?? 0;
+    const userUpdated = { ...form.value, id: id };
+    if (!id) {
+      this.userService.userCreated.next(userUpdated);
+    } else {
+      this.userService.userUpdated.next(userUpdated);
+    }
+    this.router.navigateByUrl('users');
   }
 }
